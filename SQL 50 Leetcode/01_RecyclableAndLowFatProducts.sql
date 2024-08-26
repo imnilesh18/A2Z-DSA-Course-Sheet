@@ -40,6 +40,13 @@ Explanation: Only products 1 and 3 are both low fat and recyclable.
 
 Solution:
 
+/*
+   Select product IDs from the 'Products' table
+   where the product meets the following criteria:
+   - The product must be low fat (indicated by low_fats = 'Y')
+   - The product must be recyclable (indicated by recyclable = 'Y')
+   Use AND to ensure both conditions are met simultaneously.
+*/
 SELECT product_id
 FROM Products
-where low_fats = "Y" and recyclable = "Y"
+WHERE low_fats = 'Y' AND recyclable = 'Y';
