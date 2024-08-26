@@ -41,6 +41,8 @@ Output:
 | Algeria     | 37100000   | 2381741 |
 +-------------+------------+---------+
 
+Solution:
+
 /*
    Select the 'name', 'population', and 'area' columns from the 'World' table
    where the country is considered 'big'. A country is 'big' if it has either:
