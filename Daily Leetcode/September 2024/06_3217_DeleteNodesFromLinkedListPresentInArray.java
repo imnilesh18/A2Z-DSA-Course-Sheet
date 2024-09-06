@@ -33,6 +33,8 @@
  * list that has a value not present in nums.
  */
 
+//  Time Complexity: O(m + n)
+//  Space Complexity: O(m)
 /**
  * Definition for singly-linked list.
  * public class ListNode {
