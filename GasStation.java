@@ -48,6 +48,8 @@
 
 // Brute Force:
 // Time Limit Exceeded: 34 / 39 testcases passed
+// Time Complexity: O(n²)
+// Space Complexity: O(1)
 
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
@@ -100,3 +102,96 @@ class Solution {
 }
 
 // Greedy Approach:
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
+
+        int totalGas = Arrays.stream(gas).sum(); // Calculate the total sum of the gas array
+        int totalCost = Arrays.stream(cost).sum(); // Calculate the total sum of the cost array
+
+        /*
+         * or you can also use normal for loop to calculate the sum:
+         * int totalGas = 0;
+         * int totalCost = 0;
+         * 
+         * // Calculate the total sum of the gas array
+         * for (int i = 0; i < gas.length; i++) {
+         *      totalGas += gas[i];
+         * }
+         * 
+         * // Calculate the total sum of the cost array
+         * for (int i = 0; i < cost.length; i++) {
+         *      totalCost += cost[i];
+         * }
+         */
+
+        if (totalGas < totalCost) {
+            return -1;
+        }
+
+        int result_index = 0;
+        int total = 0;
+
+        for (int i = 0; i < n; i++) {
+            total += gas[i] - cost[i];
+            if (total < 0) {
+                result_index = i + 1;
+                total = 0;
+            }
+        }
+        return result_index;
+    }
+}
+
+// Code with comment for better understanding:
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length; // Get the number of gas stations
+
+        // Calculate the total sum of the gas array
+        int totalGas = Arrays.stream(gas).sum();
+        // Calculate the total sum of the cost array
+        int totalCost = Arrays.stream(cost).sum();
+
+        /*
+        Alternatively, you can use a normal for loop to calculate the sum:
+        int totalGas = 0;
+        int totalCost = 0;
+        
+        // Calculate the total sum of the gas array
+        for (int i = 0; i < gas.length; i++) {
+            totalGas += gas[i];
+        }
+        
+        // Calculate the total sum of the cost array
+        for (int i = 0; i < cost.length; i++) {
+            totalCost += cost[i];
+        }
+        */
+
+        // If the total amount of gas is less than the total cost, it's impossible to complete the circuit
+        if (totalGas < totalCost) {
+            return -1;
+        }
+
+        int result_index = 0; // Start index for the possible solution
+        int total = 0; // Current gas level
+
+        // Loop through each gas station to find the starting point
+        for (int i = 0; i < n; i++) {
+            // Update the current gas level after moving from the current station
+            total += gas[i] - cost[i];
+            // If the current gas level drops below zero, this starting point cannot complete the circuit
+            if (total < 0) {
+                result_index = i + 1; // Move to the next station as a new starting point
+                total = 0; // Reset current gas level for the new starting point
+            }
+        }
+
+        // Return the starting index that can complete the circuit
+        return result_index;
+    }
+}
