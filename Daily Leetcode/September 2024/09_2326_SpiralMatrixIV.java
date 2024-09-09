@@ -69,7 +69,6 @@ class Solution {
             }
             right--;
 
-
             if (top <= bottom) {
                 for (int i = right; curr != null && i >= left; i--) {
                     result[bottom][i] = curr.val;
