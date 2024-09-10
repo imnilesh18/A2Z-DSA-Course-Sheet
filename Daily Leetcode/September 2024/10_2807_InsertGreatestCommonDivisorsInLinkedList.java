@@ -177,9 +177,9 @@ class Solution {
         ListNode gcdNode = new ListNode(findGCD(head.val, head.next.val));
         
         // Insert the new node between current node and next node
-        gcdNode.next = temp;
         head.next = gcdNode;
-
+        gcdNode.next = temp;
+        
         return head;
     }
 }
