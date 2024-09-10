@@ -35,6 +35,10 @@
  * 1 <= Node.val <= 1000
  */
 
+//Approach-1 (Iterative)
+//T.C : O(n)
+//S.C : O(1)
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -142,6 +146,8 @@ class Solution {
 }
 
 // Approach 2 Recursion Leap of Faith: :)
+//T.C : O(n)
+//S.C : System stack space due to recursion O(n)
 
 /**
  * Definition for singly-linked list.
