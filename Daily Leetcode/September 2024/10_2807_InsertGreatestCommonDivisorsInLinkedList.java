@@ -35,9 +35,6 @@
  * 1 <= Node.val <= 1000
  */
 
-
-
- 
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -80,7 +77,8 @@ class Solution {
     }
 }
 
-// code with comments for better understanding:
+// Code with comments for better understanding:
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -139,6 +137,49 @@ class Solution {
         }
 
         // Return the modified list
+        return head;
+    }
+}
+
+// Approach 2 Recursion Leap of Faith: :)
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+
+    public static int findGCD(int M, int N) {
+        while (N != 0) {
+            int R = M % N;
+            M = N;
+            N = R;
+        }
+        return M;
+    }
+
+    public ListNode insertGreatestCommonDivisors(ListNode head) {
+        // Base case: if the list is empty or has only one element, return the head as is
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Insert the GCD node recursively
+        ListNode temp = insertGreatestCommonDivisors(head.next);
+
+        // Create a new node with the GCD of current and next node values
+        ListNode gcdNode = new ListNode(findGCD(head.val, head.next.val));
+        
+        // Insert the new node between current node and next node
+        gcdNode.next = temp;
+        head.next = gcdNode;
+
         return head;
     }
 }
