@@ -1,7 +1,6 @@
 /*
  * 884. Uncommon Words from Two Sentences
- * 
- * 
+ *  
  * A sentence is a string of single-space separated words where each word
  * consists only of lowercase letters.
  * A word is uncommon if it appears exactly once in one of the sentences, and
