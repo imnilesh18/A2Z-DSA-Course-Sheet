@@ -74,28 +74,42 @@ class Solution {
         // Create a HashSet to store the prefixes from arr1
         Set<Integer> st = new HashSet<>();
 
-        // Loop through each number in arr1
+        // Loop through each number in arr1 to store all its prefixes
         for (int val : arr1) {
-            // Add all prefixes of the number (by dividing by 10) into the set
+            // Example: val = 123
+            // Prefixes: 123, 12, 1 will be added to the set
+            // Set: {123, 12, 1}
+
+            // Example: val = 12345
+            // Prefixes: 12345, 1234, 123 (already present), 12 (already present), 1
+            // (already present)
+            // Set will now contain: {12345, 1234, 123, 12, 1}
+
             while (!st.contains(val) && val > 0) {
                 st.add(val); // Add the current prefix to the set
-                val = val / 10; // Remove the last digit
+                val = val / 10; // Remove the last digit to form the next prefix
             }
         }
 
         int result = 0; // Initialize result to store the longest common prefix length
 
-        // Loop through each number in arr2
+        // Loop through each number in arr2 to find the longest common prefix
         for (int num : arr2) {
-            // Remove digits from num until we find a prefix that exists in the set
+            // Example: num = 1234, check if it's present in the set or any of its prefixes
+            // Keep dividing num by 10 until a prefix is found or num becomes 0
+            // If 1234 is present in the set, it will stop here, otherwise, it will check
+            // 123, 12, 1, and so on.
+
             while (!st.contains(num) && num > 0) {
-                num = num / 10; // Keep dividing num by 10
+                num = num / 10; // Keep removing digits from num
             }
 
-            // If a valid prefix is found (num > 0), calculate its length
+            // If a valid common prefix is found (num > 0), calculate its length
             if (num > 0) {
                 // Calculate the number of digits in the common prefix using log10
                 result = Math.max(result, (int) (Math.log10(num) + 1));
+                // Example: if num = 123, then log10(123) + 1 = 3, so the prefix length is 3
+                // digits
             }
         }
 
