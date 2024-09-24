@@ -39,28 +39,66 @@
 // TLE:
 class Solution {
     public int longestCommonPrefix(int[] arr1, int[] arr2) {
-        int result = 0;  // To store the longest common prefix length
-        
+        int result = 0; // To store the longest common prefix length
+
         for (int i = 0; i < arr1.length; i++) {
-            char[] charArr1 = Integer.toString(arr1[i]).toCharArray();  // Convert arr1[i] to char array
-            
+            char[] charArr1 = Integer.toString(arr1[i]).toCharArray(); // Convert arr1[i] to char array
+
             for (int j = 0; j < arr2.length; j++) {
-                int length = 0;  // Length of the current common prefix
-                int k = 0;  // Index for character comparison
-                
-                char[] charArr2 = Integer.toString(arr2[j]).toCharArray();  // Convert arr2[j] to char array
-                
-                // Compare each character of both arrays until a mismatch or end of one of the arrays
+                int length = 0; // Length of the current common prefix
+                int k = 0; // Index for character comparison
+
+                char[] charArr2 = Integer.toString(arr2[j]).toCharArray(); // Convert arr2[j] to char array
+
+                // Compare each character of both arrays until a mismatch or end of one of the
+                // arrays
                 while (k < charArr1.length && k < charArr2.length && charArr1[k] == charArr2[k]) {
                     k++;
                     length++;
                 }
-                
+
                 // Update the result with the longest prefix found so far
                 result = Math.max(result, length);
             }
         }
-        
+
         return result;
+    }
+}
+
+// Approach 2 - Brute Force
+// T.C : O(m⋅log10​M + n⋅log10​N)
+// S.C : O(m⋅log10​M)
+class Solution {
+    public int longestCommonPrefix(int[] arr1, int[] arr2) {
+        // Create a HashSet to store the prefixes from arr1
+        Set<Integer> st = new HashSet<>();
+
+        // Loop through each number in arr1
+        for (int val : arr1) {
+            // Add all prefixes of the number (by dividing by 10) into the set
+            while (!st.contains(val) && val > 0) {
+                st.add(val); // Add the current prefix to the set
+                val = val / 10; // Remove the last digit
+            }
+        }
+
+        int result = 0; // Initialize result to store the longest common prefix length
+
+        // Loop through each number in arr2
+        for (int num : arr2) {
+            // Remove digits from num until we find a prefix that exists in the set
+            while (!st.contains(num) && num > 0) {
+                num = num / 10; // Keep dividing num by 10
+            }
+
+            // If a valid prefix is found (num > 0), calculate its length
+            if (num > 0) {
+                // Calculate the number of digits in the common prefix using log10
+                result = Math.max(result, (int) (Math.log10(num) + 1));
+            }
+        }
+
+        return result; // Return the longest common prefix length found
     }
 }
