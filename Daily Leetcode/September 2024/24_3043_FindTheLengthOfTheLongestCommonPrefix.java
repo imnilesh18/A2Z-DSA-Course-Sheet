@@ -116,3 +116,79 @@ class Solution {
         return result; // Return the longest common prefix length found
     }
 }
+
+// Trie: Refer Leetcode: 212. Word Search II, 79. Word Search
+// Class representing a Trie (Prefix Tree) node
+class TrieNode {
+    TrieNode[] children; // Array to store child nodes for digits 0-9
+
+    // Constructor to initialize the children array
+    TrieNode() {
+        children = new TrieNode[10]; // Each node can have up to 10 children (0, 1, 2,...9)
+    }
+}
+
+class Solution {
+
+    // Method to insert a number into the Trie
+    void insert(int num, TrieNode root) {
+        TrieNode crawl = root; // Start from the root of the Trie
+        String numStr = Integer.toString(num); // Convert the number to string for easier traversal
+
+        // Traverse through each digit of the number
+        for (char ch : numStr.toCharArray()) {
+            int idx = ch - '0'; // Convert the character digit to an integer index (0-9)
+
+            // If there is no child at this index, create a new TrieNode
+            if (crawl.children[idx] == null) {
+                crawl.children[idx] = new TrieNode();
+            }
+
+            // Move to the next level (child node)
+            crawl = crawl.children[idx];
+        }
+    }
+
+    // Method to search for the longest common prefix of a number in the Trie
+    // Returns the length of the longest prefix found
+    int search(int num, TrieNode root) {
+        TrieNode crawl = root; // Start from the root of the Trie
+        String numStr = Integer.toString(num); // Convert the number to string for easier traversal
+        int length = 0; // To store the length of the common prefix
+
+        // Traverse through each digit of the number
+        for (char ch : numStr.toCharArray()) {
+            int idx = ch - '0'; // Convert the character digit to an integer index (0-9)
+
+            // If the child at this index exists, increment the common prefix length
+            if (crawl.children[idx] != null) {
+                length++; // Increment the length of the common prefix
+                crawl = crawl.children[idx]; // Move to the next child node
+            } else {
+                // If no child exists at this index, break out of the loop (prefix ends here)
+                break;
+            }
+        }
+
+        return length; // Return the length of the longest common prefix found
+    }
+
+    // Method to find the longest common prefix between elements of two arrays
+    public int longestCommonPrefix(int[] arr1, int[] arr2) {
+        TrieNode root = new TrieNode(); // Create a new Trie (root node)
+
+        // Insert all elements of the first array (arr1) into the Trie
+        for (int num : arr1) {
+            insert(num, root);
+        }
+
+        int result = 0; // To store the length of the longest common prefix
+
+        // Search for the longest common prefix in the second array (arr2)
+        for (int num : arr2) {
+            result = Math.max(result, search(num, root)); // Update result with the maximum length found
+        }
+
+        return result; // Return the length of the longest common prefix
+    }
+}
