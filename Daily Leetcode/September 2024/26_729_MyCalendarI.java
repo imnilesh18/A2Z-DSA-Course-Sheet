@@ -67,9 +67,54 @@ class MyCalendar {
         return true;
     }
 }
-
 /**
  * Usage example:
  * MyCalendar obj = new MyCalendar();
  * boolean param_1 = obj.book(start,end);
  */
+
+
+// Approach - 2 (set : lower_bound) : O(nlog(n))
+// Time Complexity: O(nlogn)
+// Space Complexity: O(n)
+class MyCalendar {
+
+    // TreeSet to store the booked intervals
+    TreeSet<int[]> st;
+
+    public MyCalendar() {
+        // Initialize the TreeSet with a custom comparator
+        // The comparator sorts the intervals primarily by start time
+        // If start times are the same, it sorts by end time
+        st = new TreeSet<>((a, b) -> a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]);
+    }
+
+    public boolean book(int start, int end) {
+        // Create an event array to represent the new booking
+        int[] event = new int[] { start, end };
+
+        // Find the first event that starts after or at the same time as the new event
+        // This is done using the ceiling method which finds the least element greater
+        // than or equal to the given element
+        int[] next = st.ceiling(event); // O(logN)
+
+        // Check if the current event overlaps with the next event
+        // Overlap occurs if the next event starts before the current event ends
+        if (next != null && next[0] < end) {
+            return false; // Return false as booking cannot be made due to overlap
+        }
+
+        // Check if the current event overlaps with the previous event
+        // This is done using the floor method which finds the greatest element less
+        // than or equal to the given element
+        int[] prev = st.floor(event);
+        // Overlap occurs if the current event starts before the previous event ends
+        if (prev != null && start < prev[1]) {
+            return false; // Return false as booking cannot be made due to overlap
+        }
+
+        // If no overlap, add the booking to the set
+        st.add(new int[] { start, end });
+        return true; // Return true indicating the booking was successful
+    }
+}
