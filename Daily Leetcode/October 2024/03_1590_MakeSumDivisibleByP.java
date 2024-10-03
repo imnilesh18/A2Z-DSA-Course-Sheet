@@ -34,7 +34,58 @@
  * 1 <= p <= 10^9
  */
 
+// Approach: (Using prefix sum modulo and storing in hashmap)
+// T.C : O(n)
+// S.C : O(n)
+class Solution {
+    public int minSubarray(int[] nums, int p) {
+        int n = nums.length; // Length of the array
+        int sum = 0; // To store the sum of the array modulo p
 
+        // Step 1: Calculate the total sum of the array modulo p
+        for (int num : nums) {
+            sum = (sum + num) % p; // Update the sum with modulo p to prevent overflow
+        }
+
+        // Step 2: Calculate the remainder (target) that needs to be removed to make the
+        // sum divisible by p
+        int target = sum % p;
+
+        // Step 3: If the sum is already divisible by p, no need to remove any subarray,
+        // return 0
+        if (target == 0) {
+            return 0;
+        }
+
+        // Step 4: Create a HashMap to store the prefix sum mod p and its index
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        mp.put(0, -1); // Initialize with prefix sum 0 at index -1 for the edge case
+
+        int curr = 0; // Variable to store the current prefix sum modulo p
+        int result = n; // Variable to store the minimum length of subarray to remove, initialized to n
+                        // (max length)
+
+        // Step 5: Iterate through the array to find the smallest subarray that can be
+        // removed
+        for (int j = 0; j < n; j++) {
+            curr = (curr + nums[j]) % p; // Calculate current prefix sum modulo p
+            int prev = (curr - target + p) % p; // Calculate the required previous prefix sum mod p
+
+            // Step 6: Check if this previous prefix sum has already been seen
+            if (mp.containsKey(prev)) {
+                // Update result with the minimum subarray length that needs to be removed
+                result = Math.min(result, j - mp.get(prev));
+            }
+
+            // Step 7: Store the current prefix sum and its index in the map
+            mp.put(curr, j);
+        }
+
+        // Step 8: If no valid subarray is found, return -1; otherwise, return the
+        // minimum subarray length
+        return result == n ? -1 : result;
+    }
+}
 
 // My Approach but TLE:
 class Solution {
