@@ -21,6 +21,7 @@
  * -10 <= nums[i] <= 10
  * All the integers of nums are unique.
  */
+
 class Solution {
     // Function to swap two elements in the array
     void swap(int[] nums, int i, int j) {
