@@ -21,6 +21,53 @@
  * -10 <= nums[i] <= 10
  * All the integers of nums are unique.
  */
+class Solution {
+    // Function to swap two elements in the array
+    void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    // Recursive function to generate all permutations
+    void solve(int idx, int[] nums, int n, List<List<Integer>> result) {
+        // Base case: when idx reaches the end of the array, we have a complete
+        // permutation
+        if (idx == n) {
+            // Make a copy of the array and add it to the result
+            List<Integer> temp = new ArrayList<>();
+            for (int num : nums) {
+                temp.add(num);
+            }
+            result.add(temp);
+            return;
+        }
+
+        // Iterate over the remaining elements and generate permutations
+        for (int i = idx; i < n; i++) {
+            // Swap current element with the idx element
+            swap(nums, i, idx);
+
+            // Recur with the next index
+            solve(idx + 1, nums, n, result);
+
+            // Backtrack by swapping back to restore the original array
+            swap(nums, i, idx);
+        }
+    }
+
+    // Main function to generate all permutations
+    public List<List<Integer>> permute(int[] nums) {
+        int n = nums.length; // Length of the input array
+        List<List<Integer>> result = new ArrayList<>(); // List to store the result
+
+        // Start recursive backtracking from index 0
+        solve(0, nums, n, result);
+
+        // Return the final list of permutations
+        return result;
+    }
+}
 
 class Solution {
     void solve(List<Integer> temp, int[] nums, int n, List<List<Integer>> result, HashSet<Integer> st) {
