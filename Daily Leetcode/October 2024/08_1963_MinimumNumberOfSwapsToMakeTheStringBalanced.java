@@ -81,3 +81,25 @@ class Solution {
         return (size + 1) / 2;
     }
 }
+
+// My Approach:
+
+class Solution {
+    public int minSwaps(String s) {
+
+        Stack<Character> st = new Stack<>();
+
+        for (char ch : s.toCharArray()) {
+            if (ch == '[') {
+                st.push(ch);
+            }
+            if (!st.isEmpty()) {
+                if (ch == ']' && st.peek() == '[') {
+                    st.pop();
+                }
+            }
+        }
+        return (st.size() + 1) / 2;
+
+    }
+}
