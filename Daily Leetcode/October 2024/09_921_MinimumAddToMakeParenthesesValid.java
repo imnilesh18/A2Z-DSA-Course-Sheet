@@ -1,0 +1,67 @@
+/*
+ * 921. Minimum Add to Make Parentheses Valid
+ * 
+ * A parentheses string is valid if and only if:
+ * 
+ * It is the empty string,
+ * It can be written as AB (A concatenated with B), where A and B are valid
+ * strings, or
+ * It can be written as (A), where A is a valid string.
+ * You are given a parentheses string s. In one move, you can insert a
+ * parenthesis at any position of the string.
+ * For example, if s = "()))", you can insert an opening parenthesis to be
+ * "(()))" or a closing parenthesis to be "())))".
+ * Return the minimum number of moves required to make s valid.
+ * 
+ * Example 1:
+ * Input: s = "())"
+ * Output: 1
+ * 
+ * Example 2:
+ * Input: s = "((("
+ * Output: 3
+ * 
+ * Constraints:
+ * 1 <= s.length <= 1000
+ * s[i] is either '(' or ')'.
+ */
+
+// TC : O(n)
+// SC : O(n)
+class Solution {
+    public int minAddToMakeValid(String s) {
+        Stack<Character> st = new Stack<>();
+        int close = 0;
+        for (char ch : s.toCharArray()) {
+            if (st.isEmpty() && ch == ')') {
+                close++;
+            } else if (ch == '(') {
+                st.push(ch);
+            } else {
+                st.pop();
+            }
+        }
+        return st.size() + close;
+    }
+}
+
+// TC: O(n)
+// SC: O(1)
+
+class Solution {
+    public int minAddToMakeValid(String s) {
+        // Stack<Character> st = new Stack<>();
+        int close = 0;
+        int open = 0;
+        for (char ch : s.toCharArray()) {
+            if (open == 0 && ch == ')') {
+                close++;
+            } else if (ch == '(') {
+                open++;
+            } else {
+                open--;
+            }
+        }
+        return open + close;
+    }
+}
