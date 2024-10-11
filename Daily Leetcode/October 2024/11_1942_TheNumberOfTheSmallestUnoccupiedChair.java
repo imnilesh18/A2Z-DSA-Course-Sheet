@@ -91,3 +91,52 @@ class Solution {
         return -1;
     }
 }
+
+// Approach-2 (Using min-heaps)
+// T.C : O(nlogn)
+// S.C : O(n)
+class Solution {
+    public int smallestChair(int[][] times, int targetFriend) {
+        int n = times.length;
+        // Min-heap for occupied chairs: {departTime, chairNo}
+        PriorityQueue<int[]> occupied = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        // Min-heap for free chairs (keeps track of available chair numbers)
+        PriorityQueue<Integer> free = new PriorityQueue<>();
+
+        int targetFriendArrivalTime = times[targetFriend][0];
+
+        int chairNo = 0;
+        // Sort the times array based on arrival times
+        Arrays.sort(times, (a, b) -> a[0] - b[0]);
+
+        for (int i = 0; i < n; i++) {
+            int arrival = times[i][0];
+            int depart = times[i][1];
+
+            // Free chairs accordingly if their departure time is <= current arrival time
+            while (!occupied.isEmpty() && occupied.peek()[0] <= arrival) {
+                free.offer(occupied.poll()[1]); // This chair is now free
+            }
+
+            if (free.isEmpty()) {
+                // No free chairs, assign a new chair
+                occupied.offer(new int[] { depart, chairNo });
+
+                // Check if this is the target friend
+                if (arrival == targetFriendArrivalTime) {
+                    return chairNo;
+                }
+
+                chairNo++; // Increment chair number for the next friend
+            } else {
+                // Assign the least available free chair
+                int leastChairAvailable = free.poll();
+                if (arrival == targetFriendArrivalTime) {
+                    return leastChairAvailable;
+                }
+                occupied.offer(new int[] { depart, leastChairAvailable });
+            }
+        }
+        return -1;
+    }
+}
