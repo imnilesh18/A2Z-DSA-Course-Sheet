@@ -119,4 +119,92 @@ class Solution {
     }
 }
 
+// Approach-2 (using constant space)
+// T.C : O(n)
+// S.C : O(1)
 
+class Solution {
+    void swap(int i1, int i2, char[] s) {
+        char temp = s[i1];
+        s[i1] = s[i2];
+        s[i2] = temp;
+    }
+
+    public int maximumSwap(int num) {
+
+        String S = String.valueOf(num);
+        char[] s = S.toCharArray();
+        int n = s.length;
+
+        int[] maxRight = new int[10];
+
+        for (int i = 0; i < n; i++) {
+            int idx = s[i] - '0';
+            maxRight[idx] = i;
+        }
+
+        for (int i = 0; i < n; i++) {
+            int currDigit = s[i] - '0';
+
+            for (int digit = 9; digit > currDigit; digit--) {
+                if (maxRight[digit] > i) {
+                    swap(i, maxRight[digit], s);
+                    return Integer.parseInt(new String(s));
+                }
+            }
+        }
+        return num;
+    }
+}
+
+// Code with comments for better understanding:
+// Approach-2 (using constant space)
+// T.C : O(n)
+// S.C : O(1)
+
+class Solution {
+    // Swap method to exchange the characters at two given indices in the char array
+    void swap(int i1, int i2, char[] s) {
+        char temp = s[i1]; // Store the character at index i1 temporarily
+        s[i1] = s[i2]; // Assign the character at index i2 to index i1
+        s[i2] = temp; // Assign the temporary character (from i1) to index i2
+    }
+
+    public int maximumSwap(int num) {
+        // Convert the integer 'num' to a String, then to a char array for manipulation
+        String S = String.valueOf(num);
+        char[] s = S.toCharArray(); // Convert the string representation of 'num' to a char array
+        int n = s.length; // Store the length of the char array
+
+        // Array to store the last occurrence of each digit (0-9) in the number
+        int[] maxRight = new int[10]; // Index 0 to 9 represent digits 0 to 9
+
+        // Populate the maxRight array with the last seen index of each digit
+        for (int i = 0; i < n; i++) {
+            int idx = s[i] - '0'; // Convert the current character to an integer (digit)
+            maxRight[idx] = i; // Store the index of the last occurrence of this digit
+        }
+
+        // Traverse the number from left to right to find the first digit that can be
+        // swapped
+        for (int i = 0; i < n; i++) {
+            int currDigit = s[i] - '0'; // Convert the current character to an integer (digit)
+
+            // Check if there is a larger digit (9 to currDigit+1) that appears after the
+            // current index
+            for (int digit = 9; digit > currDigit; digit--) {
+                // If the larger digit exists after the current digit's position, swap them
+                if (maxRight[digit] > i) {
+                    swap(i, maxRight[digit], s); // Swap current digit with the larger one found
+                    // Convert the modified char array back to a string and then parse it as an
+                    // integer
+                    return Integer.parseInt(new String(s)); // Return the new maximum number after the swap
+                }
+            }
+        }
+
+        // If no swap is performed, return the original number as no larger number can
+        // be formed
+        return num;
+    }
+}
