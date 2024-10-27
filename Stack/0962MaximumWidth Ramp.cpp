@@ -18,6 +18,10 @@
  * 2 <= nums.length <= 5 * 0^4
  * 0 <= nums[i] <= 5 * 10^4
  */
+
+// T.C : O(n)
+// S.C : O(n)
+
 class Solution {
 public:
    int maxWidthRamp(vector<int>& nums){
