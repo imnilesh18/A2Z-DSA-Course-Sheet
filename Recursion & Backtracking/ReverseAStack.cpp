@@ -33,7 +33,7 @@
  */
 
 // Approach-1 (Using O(n) Auxiliary Space (we took extra one temp stack))
-// T.C : O(n^2)
+// T.C : O(n²)
 // S.C : O(n) Auxiliary Space (we took extra one temp stack)
 class Solution {
 public:
@@ -64,7 +64,7 @@ public:
 
 // Code with comments for better understanding:
 // Approach-1 (Using O(n) Auxiliary Space (we took extra one temp stack))
-// T.C : O(n^2)
+// T.C : O(n²)
 // S.C : O(n) Auxiliary Space (we took extra one temp stack):
 class Solution {
 public:
@@ -99,5 +99,82 @@ public:
          St.push(temp.top());
          temp.pop();
       }
+   }
+};
+
+// Approach-2 (Using O(1) Auxiliary Space)
+// Simply write a story like recursion and trust it
+// T.C : O(n²)
+// S.C : O(1) Auxiliary Space
+class Solution {
+public:
+   void insertAtBottom(stack<int>&St, int element){
+      if (St.empty()) {
+         St.push(element);
+         return;
+      }
+
+      int currTopElement = St.top();
+      St.pop();
+      insertAtBottom(St, element);
+      St.push(currTopElement);
+   }
+
+   void Reverse(stack<int>&St){
+      if (St.empty()) {
+         return;
+      }
+
+      int top = St.top();
+      St.pop();
+
+      Reverse(St);
+
+      insertAtBottom(St, top);
+   }
+};
+
+// Code with comments for better understanding:
+// Approach-2 (Using O(1) Auxiliary Space)
+// Simply write a story like recursion and trust it
+// T.C : O(n²)
+// S.C : O(1) Auxiliary Space
+class Solution {
+public:
+   // Helper function to insert an element at the bottom of the stack
+   void insertAtBottom(stack<int>&St, int element){
+      // Base case: If the stack is empty, push the element directly
+      if (St.empty()) {
+         St.push(element);
+         return;
+      }
+
+      // Step 1: Store the current top element
+      int currTopElement = St.top();
+      St.pop();   // Remove the top element
+
+      // Step 2: Recursively call insertAtBottom to insert the new element
+      insertAtBottom(St, element);
+
+      // Step 3: After inserting the element at the bottom, push the stored top element back onto the stack
+      St.push(currTopElement);
+   }
+
+   // Function to reverse the stack using recursion
+   void Reverse(stack<int>&St){
+      // Base case: If the stack is empty, there's nothing to reverse
+      if (St.empty()) {
+         return;
+      }
+
+      // Step 1: Remove the top element from the stack
+      int top = St.top();
+      St.pop();
+
+      // Step 2: Recursively reverse the remaining stack
+      Reverse(St);
+
+      // Step 3: Insert the removed top element at the bottom of the reversed stack
+      insertAtBottom(St, top);
    }
 };
