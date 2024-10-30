@@ -73,3 +73,117 @@ public:
       return 'x';
    }
 };
+
+// Approach 2:
+// T.C : O(n)
+// S.C : O(1)
+class Solution {
+public:
+   char findTheDifference(string s, string t){
+      int sum_s = 0;
+
+      for (char&ch : s) {
+         sum_s += ch;
+      }
+
+      int sum_t = 0;
+      for (char&ch : t) {
+         sum_t += ch;
+      }
+
+      // sum_t > sum_s
+      return (char)sum_t - sum_s;
+   }
+};
+
+/*
+ * Approach 2:
+ * - Calculate the sum of ASCII values of all characters in s.
+ * - Then, calculate the sum of ASCII values of all characters in t.
+ * - Since t has one extra character, the difference between sum_t and sum_s will give the ASCII value
+ *   of the extra character in t.
+ *
+ * Time Complexity (T.C): O(n), where n is the length of string t (one pass over s and t each).
+ * Space Complexity (S.C): O(1), as only integer variables are used for summing.
+ */
+class Solution {
+public:
+   char findTheDifference(string s, string t){
+      int sum_s = 0;
+
+      // Sum the ASCII values of all characters in string s
+      for (char&ch : s) {
+         sum_s += ch;
+      }
+
+      int sum_t = 0;
+      // Sum the ASCII values of all characters in string t
+      for (char&ch : t) {
+         sum_t += ch;
+      }
+
+      // The difference (sum_t - sum_s) is the ASCII value of the extra character in t
+      return (char)(sum_t - sum_s);
+   }
+};
+
+/*
+ * Approach 2:
+ * - Initialize a sum variable to accumulate ASCII values.
+ * - First, add all characters' ASCII values from string t to sum.
+ * - Then, subtract all characters' ASCII values from string s from sum.
+ * - Since t contains one extra character, the final value of sum will be the ASCII value of the extra character.
+ *
+ * Time Complexity (T.C): O(n), where n is the length of string t (one pass over s and t each).
+ * Space Complexity (S.C): O(1), as we are only using an integer variable for summing.
+ */
+class Solution {
+public:
+   char findTheDifference(string s, string t){
+      int sum = 0;
+
+      // Add ASCII values of all characters in string t to sum
+      for (char&ch : t) {
+         sum += ch;
+      }
+
+      // Subtract ASCII values of all characters in string s from sum
+      for (char&ch : s) {
+         sum -= ch;
+      }
+
+      // The remaining value in sum is the ASCII value of the extra character in t
+      return (char)sum;
+   }
+};
+
+/*
+ * Approach(Using XOR) :
+ *-Initialize a variable XOR to 0.
+ * -XOR each character in string s with XOR(this will cancel out matching characters).
+ *-XOR each character in string t with XOR.
+ *-Since XORing the same value twice cancels it out, all characters that appear in both s and t will cancel.
+ * Only the extra character in t will remain in XOR at the end.
+ *
+ * Time Complexity(T.C) : O(n), where n is the length of string t(one pass over s and t each).
+ * Space Complexity(S.C) : O(1), as we only use a single variable XOR.
+ */
+class Solution {
+public:
+   char findTheDifference(string s, string t){
+      int XOR = 0;
+
+      // XOR all characters in string s with XOR
+      for (char&ch : s) {
+         XOR ^= ch;
+      }
+
+      // XOR all characters in string t with XOR
+      for (char&ch : t) {
+         XOR ^= ch;
+      }
+
+      // XOR now contains the ASCII value of the extra character in t
+      return char(XOR);
+   }
+};
