@@ -13,5 +13,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1160_FindWordsThatCanBeFormedByCharacters.cpp">
+                    1160. Find Words That Can Be Formed by Characters
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
