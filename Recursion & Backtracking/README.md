@@ -19,5 +19,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Recursion%20%26%20Backtracking/MergeSort.cpp">
+                    Merge Sort
+                </a>
+            </td>
+        </tr>        
     </tbody>
 </table>
