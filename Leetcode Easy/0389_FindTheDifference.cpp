@@ -158,7 +158,7 @@ public:
 };
 
 /*
- * Approach(Using XOR) :
+ * Approach 3 (Using XOR):
  *-Initialize a variable XOR to 0.
  * -XOR each character in string s with XOR(this will cancel out matching characters).
  *-XOR each character in string t with XOR.
