@@ -27,5 +27,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1688_CountOfMatchesInTournament.cpp">
+                    1688. Count of Matches in Tournament
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
