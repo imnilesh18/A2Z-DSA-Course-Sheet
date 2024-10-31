@@ -37,6 +37,7 @@ public:
    }
 };
 
+// Code with comments for better understanding:
 class Solution {
 public:
    vector<vector<int> > transpose(vector<vector<int> >& matrix){
