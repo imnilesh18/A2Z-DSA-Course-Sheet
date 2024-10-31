@@ -41,5 +41,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/0867_TransposeMatrix.cpp">
+                    867. Transpose Matrix
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
