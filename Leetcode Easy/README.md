@@ -20,5 +20,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/2264_Largest3SameDigitNumberInString.cpp">
+                    2264. Largest 3-Same-Digit Number in String
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
