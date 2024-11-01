@@ -55,5 +55,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1464_MaximumProductOfTwoElementsInAnArray.cpp">
+                    1464. Maximum Product of Two Elements in an Array
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
