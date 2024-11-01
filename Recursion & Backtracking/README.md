@@ -33,5 +33,12 @@
                 </a>
             </td>
         </tr>     
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Recursion%20%26%20Backtracking/RatInAMazeProblemI.cpp">
+                    Rat in a Maze Problem - I
+                </a>
+            </td>
+        </tr> 
     </tbody>
 </table>
