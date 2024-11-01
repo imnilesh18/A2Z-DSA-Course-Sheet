@@ -29,6 +29,13 @@
         </tr>
         <tr>
             <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1957_DeleteCharactersToMakeFancyString.cpp">
+                    1957. Delete Characters to Make Fancy String
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1688_CountOfMatchesInTournament.cpp">
                     1688. Count of Matches in Tournament
                 </a>
