@@ -36,6 +36,13 @@
         </tr>
         <tr>
             <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/2490_CircularSentence.cpp">
+                    2490. Circular Sentence
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1688_CountOfMatchesInTournament.cpp">
                     1688. Count of Matches in Tournament
                 </a>
