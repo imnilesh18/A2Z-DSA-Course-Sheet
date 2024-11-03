@@ -69,5 +69,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1464_MaximumProductOfTwoElementsInAnArray.cpp">
+                    796. Rotate String
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
