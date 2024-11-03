@@ -71,7 +71,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1464_MaximumProductOfTwoElementsInAnArray.cpp">
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/0796_RotateString.cpp">
                     796. Rotate String
                 </a>
             </td>
