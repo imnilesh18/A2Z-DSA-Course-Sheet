@@ -90,5 +90,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/0242_%20ValidAnagram.cpp">
+                    242. Valid Anagram
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
