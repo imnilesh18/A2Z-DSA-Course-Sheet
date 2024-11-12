@@ -76,5 +76,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1582_SpecialPositionsInABinaryMatrix.cpp">
+                    1582. Special Positions in a Binary Matrix
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
