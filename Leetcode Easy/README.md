@@ -83,5 +83,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1436_DestinationCity.cpp">
+                    1436. Destination City
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
