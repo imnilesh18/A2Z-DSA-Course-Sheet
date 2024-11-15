@@ -97,5 +97,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1913_Maximum%20ProductDifferenceBetweenTwoPairs.cpp">
+                    1913. Maximum Product Difference Between Two Pairs
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
