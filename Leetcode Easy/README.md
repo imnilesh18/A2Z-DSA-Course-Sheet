@@ -104,5 +104,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/2706_BuyTwoChocolates.cpp">
+                    2706. Buy Two Chocolates
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
