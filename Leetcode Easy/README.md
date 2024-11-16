@@ -118,5 +118,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="">
+                    1496. Path Crossing
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
