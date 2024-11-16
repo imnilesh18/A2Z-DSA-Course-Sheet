@@ -218,7 +218,6 @@ public:
 // Score = Zl + (Ot - Ol)
 // => Score = (Zl - Ol) + Ot
 // To maximize Score, we need to maximize (Zl - Ol) since Ot is constant.
-
 class Solution {
 public:
    int maxScore(string s){
