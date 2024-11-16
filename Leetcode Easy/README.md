@@ -120,7 +120,7 @@
         </tr>
         <tr>
             <td>
-                <a href="">
+                <a href="https://github.com/imnilesh18/A2Z-DSA-Course-Sheet/blob/master/Leetcode%20Easy/1496_PathCrossing.cpp">
                     1496. Path Crossing
                 </a>
             </td>
