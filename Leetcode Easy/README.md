@@ -125,5 +125,12 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                <a href="$">
+                    1652. Defuse the Bomb
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
