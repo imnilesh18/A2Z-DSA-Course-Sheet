@@ -2,6 +2,7 @@
  * 1422. Maximum Score After Splitting a String
  *
  * Given a string s of zeros and ones, return the maximum score after splitting the string into two non-empty substrings (i.e. left substring and right substring).
+ *
  * The score after splitting a string is the number of zeros in the left substring plus the number of ones in the right substring.
  *
  * Example 1:
@@ -29,186 +30,74 @@
  * The string s consists of characters '0' and '1' only.
  */
 
-
-// Brute Force:
-// T.C: O(n²)
-// S.C: O(1)
-class Solution {
-public:
-   int maxScore(string s){
-      int n = s.length();
-
-      int result = INT_MIN;
-
-      for (int i = 0; i <= n - 2; i++) {
-         int zero_count = 0;
-         for (int j = 0; j <= i; j++) {
-            if (s[j] == '0') {
-               zero_count++;
-            }
-         }
-
-         int one_count = 0;
-         for (int j = i + 1; j < n; j++) {
-            if (s[j] == '1') {
-               one_count++;
-            }
-         }
-
-         result = max(result, zero_count + one_count);
-      }
-      return result;
-   }
-};
-
-// Approach 2: (Two Passes)
-// T.C: O(2N)
-// S.C: O(1)
+// Approach 1 (Brute Force): For each possible split position, count zeros in left substring and ones in right substring, track maximum score found.
+// TC: O(n²) as we traverse array twice for each split position.
+// SC: O(1) as we only use constant extra space.
 class Solution {
 public:
    int maxScore(string s){
       int n      = s.length();
       int result = INT_MIN;
 
-      int total_ones = count(begin(s), end(s), '1');   // 1st pass
-
-      int zeros = 0;
-      int ones  = 0;
-
-      // right_ones = total_ones - ones;
-
+      // Iterate through all possible split positions except the last character
+      // since we need non-empty substrings
       for (int i = 0; i <= n - 2; i++) {
-         if (s[i] == '1') {
-            ones++;
-         } else {
-            zeros++;
-         }
-
-         int right_ones = total_ones - ones;
-
-         result = max(result, zeros + right_ones);
-      }
-      return result;
-   }
-};
-// Approach 3: (In a Single Pass)
-// T.C: O(N)
-// S.C: O(1)
-
-// Score = Zl + Or
-// Ot = Ol + Or
-// Or = (Ot - Ol) substitute this in Score
-// Score = Zl + (Ot - Ol)
-// Score = (Zl - Ol) + Ot
-// So we have to maximize (Zl - Ol)
-class Solution {
-public:
-   int maxScore(string s){
-      int n = s.length();
-
-      int score = INT_MIN;
-
-      int zeros = 0;
-      int ones  = 0;
-
-      for (int i = 0; i <= n - 2; i++) {
-         if (s[i] == '1') {
-            ones++;
-         } else {
-            zeros++;
-         }
-
-         score = max(score, zeros - ones);
-      }
-
-      if (s[n - 1] == '1') {
-         ones++;
-      }
-
-      return score + ones;
-   }
-};
-
-// Code with comments for better understanding:
-
-// Brute Force:
-// T.C: O(n²)
-// S.C: O(1)
-class Solution {
-public:
-   int maxScore(string s){
-      // Get the length of the string
-      int n = s.length();
-
-      // Initialize the result to the minimum possible integer
-      int result = INT_MIN;
-
-      // Loop to iterate through all possible splitting points
-      // (i.e., between index 0 to n-2)
-      for (int i = 0; i <= n - 2; i++) {
-         // Count zeros in the left substring (0 to i)
          int zero_count = 0;
+         // Count zeros in left substring (from index 0 to i)
          for (int j = 0; j <= i; j++) {
             if (s[j] == '0') {
                zero_count++;
             }
          }
 
-         // Count ones in the right substring (i+1 to n-1)
          int one_count = 0;
+         // Count ones in right substring (from index i+1 to end)
          for (int j = i + 1; j < n; j++) {
             if (s[j] == '1') {
                one_count++;
             }
          }
 
-         // Update the maximum score
+         // Update result with maximum score found so far
+         // Score = number of zeros in left + number of ones in right
          result = max(result, zero_count + one_count);
       }
-
-      // Return the maximum score
       return result;
    }
 };
 
-// Approach 2: (Two Passes)
-// T.C: O(2N)
-// S.C: O(1)
+// Approach 2 (Two Passes): Count total ones first, then for each split maintain running count of zeros on left and calculate ones on right by subtracting ones seen from total ones.
+// TC: O(2n) as we make two passes through the string.
+// SC: O(1) as we only use constant extra space.
 class Solution {
 public:
    int maxScore(string s){
-      int n      = s.length(); // Get the length of the string
-      int result = INT_MIN;    // Initialize the maximum score to the minimum possible value
+      int n      = s.length();
+      int result = INT_MIN;
 
-      // Calculate the total number of ones in the string (1st pass)
-      // This helps us calculate the number of ones in the right substring directly.
+      // Count total ones in string in first pass
       int total_ones = count(begin(s), end(s), '1');
 
-      int zeros = 0;   // To count zeros in the left substring
-      int ones  = 0;   // To count ones encountered so far in the left substring
+      int zeros = 0;   // Track zeros in left substring
+      int ones  = 0;   // Track ones seen so far
 
-      // Iterate through the string up to n-2, as we need to split into two non-empty parts
       for (int i = 0; i <= n - 2; i++) {
          if (s[i] == '1') {
-            ones++;     // Increment the count of ones in the left substring
+            ones++;     // Increment ones seen in left substring
          } else {
-            zeros++;    // Increment the count of zeros in the left substring
+            zeros++;    // Increment zeros in left substring
          }
 
-         // Calculate the number of ones in the right substring
-         int right_ones = total_ones - ones;
-
-         // Update the maximum score (zeros in the left + ones in the right)
-         result = max(result, zeros + right_ones);
+         int right_ones = total_ones - ones;       // Ones in right = total ones - ones in left
+         result = max(result, zeros + right_ones); // Update max score
       }
-
-      return result;   // Return the maximum score obtained
+      return result;
    }
 };
 
-// Approach 3: (In a Single Pass)
-// T.C: O(N)
-// S.C: O(1)
+// Approach 3 (In a Single Pass): Use mathematical derivation to transform score formula to (Zl - Ol) + Ot, where Ot is constant, so maximize (Zl - Ol).
+// TC: O(n) for single pass through string.
+// SC: O(1) using only constant extra space.
 
 // The goal is to maximize the score after splitting the string, where:
 // Score = Zl + Or (Zeros in left + Ones in right)
