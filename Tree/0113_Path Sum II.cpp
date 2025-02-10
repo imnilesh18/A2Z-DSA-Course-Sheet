@@ -26,6 +26,18 @@
  * -1000 <= targetSum <= 1000
  */
 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
 // Approach: Use DFS to explore all root-to-leaf paths, accumulating the sum and storing the path when a leaf node's sum equals targetSum.
 // Time Complexity: O(N) average; worst-case O(N^2) in skewed trees due to vector copying.
 // Space Complexity: O(H), where H is the height of the tree, for recursion stack and temporary path storage.
