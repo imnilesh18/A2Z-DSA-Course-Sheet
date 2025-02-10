@@ -108,7 +108,6 @@ public:
  * Thus, the minimum depth is 2.
  */
 
-
 // Approach 2: Use recursion to compute the minimum depth by exploring both subtrees; if one subtree is missing, ignore it by using INT_MAX, and add 1 for the current node.
 // TC: O(n) - every node is processed once.
 // SC: O(h) - recursion stack space, where h is the height of the tree.
