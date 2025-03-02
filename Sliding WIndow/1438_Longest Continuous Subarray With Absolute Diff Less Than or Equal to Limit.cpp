@@ -46,8 +46,8 @@ public:
 
         // maxPq: max heap to get the current maximum in the window
         // minPq: min heap to get the current minimum in the window
-        priority_queue<P, vector<P> >             maxPq;
-        priority_queue<P, vector<P>, greater<P> > minPq;
+        priority_queue<P, vector<P>>             maxPq;
+        priority_queue<P, vector<P>, greater<P>> minPq;
 
         int i         = 0; // start pointer of the sliding window
         int j         = 0; // end pointer of the sliding window
