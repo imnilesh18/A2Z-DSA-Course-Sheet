@@ -25,13 +25,13 @@
 // Space Complexity: O(n) for storing the merged intervals.
 class Solution {
 public:
-    vector<vector<int> > merge(vector<vector<int> >& intervals) {
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
         int n = intervals.size();
 
         // Sorting intervals based on start times
         sort(begin(intervals), end(intervals));
 
-        vector<vector<int> > result;
+        vector<vector<int>> result;
         // Initialize result with the first interval
         result.push_back(intervals[0]);
 
