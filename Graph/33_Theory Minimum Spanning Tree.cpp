@@ -123,7 +123,6 @@ Spanning Tree Example 4:
         c -------- d 
              8
 
-
 Explanation:
   - Out of these, the spanning tree with total weight = 10 is the Minimum Spanning Tree because the edge weight sum is the lowest.
   - Thus, the MST is the one where selecting the set of edges gives the minimum possible total weight.
