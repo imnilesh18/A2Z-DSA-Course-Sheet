@@ -1,9 +1,0 @@
-{
-  "files.associations": {
-    "*.ejs": "html",
-    "functional": "cpp",
-    "random": "cpp",
-    "limits": "cpp",
-    "iterator": "cpp"
-  }
-}
