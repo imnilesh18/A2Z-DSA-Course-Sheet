@@ -527,3 +527,296 @@
  * - This allows us to always process the node with the current smallest known distance,
  *   ensuring an efficient and optimal solution as outlined by Dijkstra's algorithm.
  */
+
+/******************************************************************************************************************************/
+/*
+ * GfG Problem Link: https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
+ *
+ * Dijkstra Algorithm
+ *
+ * Difficulty: Medium Accuracy: 50.83% Submissions: 212K+ Points: 4 Average Time: 25m
+ *
+ * Given an undirected, weighted graph with V vertices numbered from 0 to V-1 and E edges, represented by 2d array edges[][], where edges[i]=[u, v, w] represents the edge between the nodes u and v having w edge weight.
+ * You have to find the shortest distance of all the vertices from the source vertex src, and return an array of integers where the ith element denotes the shortest distance between ith node and source vertex src.
+ *
+ * Note: The Graph is connected and doesn't contain any negative weight edge.
+ *
+ * Examples:
+ *
+ * Input: V = 3, edges[][] = [[0, 1, 1], [1, 2, 3], [0, 2, 6]], src = 2
+ * Output: [4, 3, 0]
+ * Explanation:
+ * Shortest Paths:
+ * For 2 to 0 minimum distance will be 4. By following path 2 -> 1 -> 0
+ * For 2 to 1 minimum distance will be 3. By following path 2 -> 1
+ * For 2 to 2 minimum distance will be 0. By following path 2 -> 2
+ *
+ * Input: V = 5, edges[][] = [[0, 1, 4], [0, 2, 8], [1, 4, 6], [2, 3, 2], [3, 4, 10]], src = 0
+ * Output: [0, 4, 8, 10, 10]
+ * Explanation:
+ * Shortest Paths:
+ * For 0 to 1 minimum distance will be 4. By following path 0 -> 1
+ * For 0 to 2 minimum distance will be 8. By following path 0 -> 2
+ * For 0 to 3 minimum distance will be 10. By following path 0 -> 2 -> 3
+ * For 0 to 4 minimum distance will be 10. By following path 0 -> 1 -> 4
+ *
+ * Constraints:
+ * 1 ≤ V ≤ 10^5
+ * 1 ≤ E = edges.size() ≤ 10^5
+ * 0 ≤ edges[i][j] ≤ 10^4
+ * 0 ≤ src < V
+ */
+
+/************************************************************ C++ ************************************************/
+
+// Approach: Use Dijkstra's algorithm to compute the shortest distance from the source to all other vertices in a weighted graph using a priority queue.
+// Time Complexity: O(E log V) where E is the number of edges and V is the number of vertices.
+// Space Complexity: O(V + E) for storing the adjacency list and the result array.
+class Solution {
+public:
+    // Function that returns the shortest distance from 'source' to every other vertex in the graph.
+    vector<int> dijkstra(int V, vector<vector<int>>& edges, int source) {
+        // Build the adjacency list: for each edge, add both directions for an undirected graph.
+        unordered_map<int, vector<pair<int, int>>> adj;
+
+        for (auto& e : edges) {
+            int u = e[0];                   // starting vertex of the edge
+            int v = e[1];                   // ending vertex of the edge
+            int w = e[2];                   // edge weight
+            adj[u].push_back({ v, w });
+            adj[v].push_back({ u, w });     // Omit this line if the graph is directed
+        }
+
+        // Priority queue stores pairs {distance, node} and orders by smallest distance first.
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+
+        // Initialize result array with INF for all vertices.
+        vector<int> result(V, INT_MAX);
+
+        // Distance from source to itself is 0.
+        result[source] = 0;
+        pq.push({ 0, source });
+
+        // Process the graph: while there are vertices to process in the priority queue.
+        while (!pq.empty()) {
+            int d    = pq.top().first;      // current shortest distance for this node
+            int node = pq.top().second;     // current node
+            pq.pop();
+
+            // Check all adjacent nodes of the current node.
+            for (auto& vec : adj[node]) {
+                int adjNode = vec.first;         // neighbor node
+                int wt      = vec.second;        // weight of edge from current node to neighbor
+
+                // If the distance to neighbor through current node is shorter, update and push into PQ.
+                if (d + wt < result[adjNode]) {
+                    result[adjNode] = d + wt;
+                    pq.push({ d + wt, adjNode });
+                }
+            }
+        }
+
+        // Return the computed shortest distances from source to all vertices.
+        return result;
+    }
+};
+
+/*
+ *
+ * Dry Run
+ *
+ * Example:
+ * V = 3, edges = [ [0, 1, 5], [1, 2, 3], [0, 2, 1] ], source = 0
+ *
+ * Graph Visual Representation:
+ *         (0)
+ *         / \
+ *    5   /   \  1
+ *       /     \
+ *     (1)----- (2)
+ *           3
+ *
+ * Explanation:
+ * 1. Build adjacency list:
+ *    adj[0] = { {1, 5}, {2, 1} }
+ *    adj[1] = { {0, 5}, {2, 3} }
+ *    adj[2] = { {1, 3}, {0, 1} }
+ *
+ * 2. Initialize:
+ *    result = [0, ∞, ∞] (distance from source 0 to 0 is 0, others are ∞)
+ *    Priority queue (pq): { {0, 0} }
+ *
+ * 3. Iteration 1:
+ *    - Pop from pq: {0, 0}  (d = 0, node = 0)
+ *    - For each neighbor of node 0:
+ *         * Neighbor 1 with weight 5:
+ *              new distance = 0 + 5 = 5, update result[1] from ∞ to 5.
+ *              Push {5, 1} into pq.
+ *         * Neighbor 2 with weight 1:
+ *              new distance = 0 + 1 = 1, update result[2] from ∞ to 1.
+ *              Push {1, 2} into pq.
+ *    - Now, result = [0, 5, 1]
+ *    - pq now has: { {1, 2}, {5, 1} } (min-heap orders by smallest distance first)
+ *
+ * 4. Iteration 2:
+ *    - Pop from pq: {1, 2} (d = 1, node = 2)
+ *    - For each neighbor of node 2:
+ *         * Neighbor 1 with weight 3:
+ *              new distance = 1 + 3 = 4, which is less than result[1] (currently 5).
+ *              Update result[1] = 4.
+ *              Push {4, 1} into pq.
+ *         * Neighbor 0 with weight 1:
+ *              new distance = 1 + 1 = 2, but result[0] is already 0, so no update.
+ *    - Now, result = [0, 4, 1]
+ *    - pq now has: { {4, 1}, {5, 1} }
+ *
+ * 5. Iteration 3:
+ *    - Pop from pq: {4, 1} (d = 4, node = 1)
+ *    - For each neighbor of node 1:
+ *         * Neighbor 0 with weight 5:
+ *              new distance = 4 + 5 = 9, not better than result[0] = 0.
+ *         * Neighbor 2 with weight 3:
+ *              new distance = 4 + 3 = 7, not better than result[2] = 1.
+ *    - No updates; result remains: [0, 4, 1]
+ *    - pq still has: { {5, 1} }
+ *
+ * 6. Iteration 4:
+ *    - Pop from pq: {5, 1} (d = 5, node = 1)
+ *    - Node 1 is already processed (result[1] = 4 is smaller), so skip.
+ *    - pq is now empty.
+ *
+ * Final Output:
+ *    result = [0, 4, 1]
+ *
+ * This means:
+ * - The shortest distance from node 0 to node 0 is 0.
+ * - The shortest distance from node 0 to node 1 is 4.
+ * - The shortest distance from node 0 to node 2 is 1.
+ *
+ * Dijkstra's algorithm thus gives us the minimum distances from the source to all other nodes.
+ */
+
+/************************************************************ JAVA ************************************************/
+
+// Approach: Use Dijkstra's algorithm to compute the shortest distances from the source vertex to all other vertices
+// by building an adjacency list from the edges and then processing nodes using a min-heap (priority queue).
+// Time Complexity: O(E log V), where E is the number of edges and V is the number of vertices.
+// Space Complexity: O(V + E) for the adjacency list, result array, and the priority queue.
+class Solution {
+    public int[] dijkstra(int V, int[][] edges, int source) {
+        // Build the adjacency list.
+        // 'adj' maps a vertex to a list of pairs {neighbor, weight}.
+        List<List<int[]>> adj = new ArrayList<>();
+
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        // For each edge, add both directions (since the graph is undirected).
+        for (int[] e : edges) {
+            int u = e[0];                          // starting vertex of the edge
+            int v = e[1];                          // ending vertex of the edge
+            int w = e[2];                          // weight of the edge
+            adj.get(u).add(new int[]{ v, w });
+            adj.get(v).add(new int[]{ u, w });     // omit this line if the graph is directed
+        }
+
+        // Priority queue to store pairs {distance, node} in ascending order of distance.
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b)->a[0] - b[0]);
+
+        // Create and initialize the result array with infinity.
+        int[] result = new int[V];
+        Arrays.fill(result, Integer.MAX_VALUE);
+
+        // Distance from the source to itself is 0.
+        result[source] = 0;
+        pq.offer(new int[]{ 0, source });      // Push {0, source} into the priority queue.
+
+        // Process the priority queue until it is empty.
+        while (!pq.isEmpty()) {
+            // Get the current smallest distance and corresponding node.
+            int d    = pq.peek()[0];     // Current distance
+            int node = pq.peek()[1];     // Current node
+            pq.poll();                   // Remove the element with the smallest distance.
+
+            // For each adjacent vertex (neighbor) of the current node.
+            for (int[] vec : adj.get(node)) {
+                int adjNode = vec[0];        // The neighbor node.
+                int wt      = vec[1];        // The weight of the edge from 'node' to 'adjNode'.
+
+                // If the newly calculated distance is smaller, update and push the neighbor.
+                if (d + wt < result[adjNode]) {
+                    result[adjNode] = d + wt;
+                    pq.offer(new int[]{ result[adjNode], adjNode });
+                }
+            }
+        }
+
+        // Return the array of shortest distances from the source.
+        return result;
+    }
+}
+
+/*
+ *
+ * Dry Run
+ *
+ * Example:
+ * V = 3, edges = [ [0, 1, 5], [1, 2, 3], [0, 2, 1] ], source = 0
+ *
+ * Graph Visual Representation:
+ *         (0)
+ *         / \
+ *    5   /   \  1
+ *       /     \
+ *     (1)----- (2)
+ *           3
+ *
+ * Step 1: Build the adjacency list:
+ *    adj[0] = { {1,5}, {2,1} }
+ *    adj[1] = { {0,5}, {2,3} }
+ *    adj[2] = { {1,3}, {0,1} }
+ *
+ * Step 2: Initialization:
+ *    - result = [0, ∞, ∞] because the source is 0.
+ *    - Priority queue (pq): [{0, 0}]
+ *
+ * Step 3: Process the priority queue:
+ *
+ *   Iteration 1:
+ *     - pq.peek() gives {0, 0} → d = 0, node = 0.
+ *     - Pop {0, 0}. Now, process neighbors of node 0.
+ *       • For neighbor 1 with weight 5: new distance = 0 + 5 = 5, update result[1] = 5, push {5, 1}.
+ *       • For neighbor 2 with weight 1: new distance = 0 + 1 = 1, update result[2] = 1, push {1, 2}.
+ *     - result = [0, 5, 1]
+ *     - pq now contains: [{1, 2}, {5, 1}]
+ *
+ *   Iteration 2:
+ *     - pq.peek() gives {1, 2} → d = 1, node = 2.
+ *     - Pop {1, 2}. Process neighbors of node 2.
+ *       • For neighbor 1 with weight 3: new distance = 1 + 3 = 4, which is less than result[1] (5), so update result[1] = 4, push {4, 1}.
+ *       • For neighbor 0 with weight 1: new distance = 1 + 1 = 2, but result[0] is 0, so no update.
+ *     - result becomes [0, 4, 1]
+ *     - pq now contains: [{4, 1}, {5, 1}]
+ *
+ *   Iteration 3:
+ *     - pq.peek() gives {4, 1} → d = 4, node = 1.
+ *     - Pop {4, 1}. Process neighbors of node 1.
+ *       • For neighbor 0 with weight 5: new distance = 4 + 5 = 9, but result[0] is 0, so no update.
+ *       • For neighbor 2 with weight 3: new distance = 4 + 3 = 7, but result[2] is 1, so no update.
+ *     - result remains [0, 4, 1].
+ *     - pq still contains: [{5, 1}]
+ *
+ *   Iteration 4:
+ *     - Pop {5, 1}. Now, since node 1 already has a better distance (4), ignore this element.
+ *     - pq is now empty.
+ *
+ * Final result array: [0, 4, 1]
+ *
+ * Explanation:
+ * - The shortest distance from node 0 to node 0 is 0.
+ * - The shortest distance from node 0 to node 1 is 4.
+ * - The shortest distance from node 0 to node 2 is 1.
+ *
+ * Dijkstra's algorithm therefore returns the minimum distances: [0, 4, 1].
+ */
